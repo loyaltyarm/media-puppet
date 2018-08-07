@@ -1,5 +1,5 @@
 moduledir 'thirdparty'
 
-mod 'puppetlabs-apt', '5.0.1'
+mod 'puppetlabs/apt', '2.4.0'
 
-mod 'puppetlabs-stdlib', '4.25.1'
+mod 'puppetlabs/stdlib'
