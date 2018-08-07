@@ -8,7 +8,7 @@ RUN apt-get update && \
     apt-get install --no-install-recommends -y puppet git-core openssl-client vim cron
 
 # Install r10k
-/usr/bin/gem install r10k
+RUN /usr/bin/gem install r10k
 
 # Pass local user ssh key into image - this is okay because this image is used for live development testing and just gets deleted after
 ARG SSH_PRIVATE_KEY
