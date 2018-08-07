@@ -1,6 +1,6 @@
 #!/bin/bash -e
 ## Install dependencies
-/usr/bin/r10k puppetfile install
+/usr/local/bin/r10k puppetfile install
 
 ## Run Puppet locally using puppet apply
 /usr/bin/puppet apply /etc/puppet/manifests/site.pp \

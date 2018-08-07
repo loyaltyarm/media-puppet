@@ -24,7 +24,7 @@ RUN git clone git@github.com:loyaltyarm/media-puppet.git /etc/puppet
 
 # Install depdnencies
 RUN cd /etc/puppet \
-    /usr/bin/r10k puppetfile install
+    /usr/local/bin/r10k puppetfile install
 
 # Apply puppet in the container
 RUN /usr/bin/puppet apply /etc/puppet/manifests/site.pp \
