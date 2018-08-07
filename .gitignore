@@ -1,0 +1,15 @@
+.DS_Store
+*.py[co]
+*.sw[mnop]
+*~
+.DS_Store
+*.pickle
+docs/_build/*
+env/
+env_docs/
+.#*
+.project
+.idea/
+thirdparty/
+
+puppet.log
