@@ -15,7 +15,7 @@ class packages() {
     include       => {
       'deb'         => true,
     },
-  }
+  } ->
   package {
     ['plexmediaserver']:
     ensure        => installed,
