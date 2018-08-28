@@ -14,12 +14,12 @@ class packages() {
     include  => {
       'deb' => true,
     },
-  }
-
+  } ->
   package {
     ['plexmediaserver']:
     ensure   => installed,
-    provider => 'apt';
+    provider => 'apt',
+    notify => Exec['apt_update'];
   }
 }
 
