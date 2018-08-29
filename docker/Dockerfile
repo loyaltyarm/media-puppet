@@ -19,6 +19,8 @@ RUN mkdir /root/.ssh && chmod 0700 /root/.ssh && \
 # Inject ssh key
 RUN echo "${SSH_PRIVATE_KEY}" >/root/.ssh/id_rsa && \
     chmod 0600 /root/.ssh/id_rsa && \
+    git config --global user.email "loyaltyarm@gmail.com" && \
+    git config --global user.nam "Nick Cobb" && \
     rm -rf /etc/puppet && \
     git clone git@github.com:loyaltyarm/media-puppet.git /etc/puppet 
 
