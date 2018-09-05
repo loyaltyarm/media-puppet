@@ -1,0 +1,63 @@
+#!/bin/bash
+
+# Constants
+DEFAULT_BRANCH=master
+PUPPET_BIN='/usr/bin/puppet'
+
+# Defaults
+DEBUG=0
+VERBOSE=0
+HIERA=1
+NOOP=0
+BRANCH=$DEFAULT_BRANCH
+
+# Handle Arguments (thanks @kp)
+while getopts ":dvhnb:" opt; do
+case $opt in
+  d)
+    DEBUG=1
+    echo "Debug selected, puppet will run with --debug flag" ;;
+  h)
+    HIERA=1
+    echo "Hiera selected, puppet will load config from repo hiera.yaml" ;;
+  n)
+    NOOP=1
+    echo "No-op selected, puppet will perform a dry run" ;;
+  v)
+    VERBOSE=1
+    echo "Run puppet in verbose mode" ;;
+  b)
+    BRANCH=$OPTARG
+    echo "Branch ${BRANCH} selected and will be used for puppet run" ;;
+  ?)
+    echo "Invalid option. Usage: $0 [-d] [-v] [-h] [-n] [-b branch]"
+    exit 0 ;;
+esac
+done
+
+# Update
+apt-get update
+
+# Run r10k
+r10k puppetfile install
+
+# Add puppet flags based on script opts
+PUPPET_FLAGS=''
+if [ $HIERA == 1 ]; then
+  PUPPET_FLAGS=$PUPPET_FLAGS" --hiera_config=hiera.yaml"
+fi
+if [ $DEBUG == 1 ]; then
+  PUPPET_FLAGS=$PUPPET_FLAGS" --debug"
+fi
+if [ $VERBOSE == 1 ]; then
+  PUPPET_FLAGS=$PUPPET_FLAGS" --verbose"
+fi
+if [ $NOOP == 1 ]; then
+  PUPPET_FLAGS=$PUPPET_FLAGS" --noop"
+fi
+
+# Run Puppet
+$PUPPET_BIN apply manifests/site.pp \
+  --modulepath=modules:thirdparty \
+  $PUPPET_FLAGS
+
